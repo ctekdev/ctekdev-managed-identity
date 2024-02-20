@@ -1,11 +1,12 @@
 # CtekDev-ManagedIdentity
 In the event application settings for an Azure app service do not provide enough security, Azure key vault provides an alternative to storing secrets and connection strings. The implementation is easy to set up in .NET. However, testing in a local environment versus production does come with some challenges.  
 Inside the KeyVault service, code similar to the line below is all that is needed to connect and return secrets from KeyVault:
-var _client = new SecretClient(new Uri(_kvUrl), new DefaultAzureCredential(), options);
+
+<code>var _client = new SecretClient(new Uri(_kvUrl), new DefaultAzureCredential(), options);</code>
 
 From this point on it’s as easy as calling the next line to return a secret.
 
-var secret = await _client.GetSecretAsync(“secret_key”);
+<code>var secret = await _client.GetSecretAsync(“secret_key”);</code>
 
 The challenge for coders comes with instantiating the DefaultAzureCredential() class. When implemented the DefaultAzureCredential class kicks off a series of credential checks, one of which is looking for a managed identity. Which in this case, running an app service, is as easy as setting up a managed identity inside the Azure portal and giving it permissions to access KeyVault. 
 
